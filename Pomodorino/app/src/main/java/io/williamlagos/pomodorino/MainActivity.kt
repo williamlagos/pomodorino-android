@@ -2,14 +2,8 @@ package io.williamlagos.pomodorino
 
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.os.Handler
-import android.os.Looper
-import android.util.Log
-//import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import io.williamlagos.pomodorino.databinding.ActivityMainBinding
-import java.util.Timer
-import kotlin.concurrent.schedule
 
 class MainActivity : AppCompatActivity() {
     private var counter = 0
@@ -28,7 +22,6 @@ class MainActivity : AppCompatActivity() {
 
             override fun onFinish() {
                 binding.timerLabel.text = "Timer ran out."
-//                Log.i("Timer", "Timer ran out.")
             }
         }
         timer.start()
