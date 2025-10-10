@@ -8,6 +8,10 @@
     <color name="teal_700">#018786</color>
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
+    <color name="yellow">#F9C421</color>
+    <color name="light_gray">#D2D1D1</color>
+    <color name="dark_gray">#707070</color>
+    <color name="black_gray">#3A3A3A</color>
 
     <!-- Light theme colors -->
     <color name="md_theme_light_primary">#006C4C</color>
