@@ -1,21 +1,51 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
+def envProps = new Properties()
+def envFile = new File(System.getProperty("user.home"), ".env")
+if (envFile.exists()) {
+    envFile.withInputStream { envProps.load(it) }
+}
+def localProps = new Properties()
+def localPropsFile = rootProject.file("local.properties")
+if (localPropsFile.exists()) {
+    localPropsFile.withInputStream { localProps.load(it) }
+}
+
+def keystorePath = localProps.getProperty("STORE_FILE") ?: envProps.getProperty("KEYSTORE_FILE") ?: "${System.getProperty('user.home')}/Developer/PlayStore.jks"
+def keystorePassword = localProps.getProperty("KEYSTORE_PASSWORD") ?: envProps.getProperty("KEYSTORE_PASSWORD") ?: System.getenv("KEYSTORE_PASSWORD")
+def keyAliasName = localProps.getProperty("KEY_ALIAS") ?: envProps.getProperty("KEY_ALIAS") ?: "key0"
+def keyAliasPassword = localProps.getProperty("KEY_PASSWORD") ?: envProps.getProperty("KEY_PASSWORD") ?: keystorePassword
+
 android {
     namespace "io.williamlagos.pomodorino"
-    compileSdkVersion 34
+    compileSdkVersion 36
 
     defaultConfig {
         applicationId "io.williamlagos.pomodorino"
         minSdkVersion 27
-        targetSdkVersion 34
-        versionCode 100
-        versionName "1.0.0"
+        targetSdkVersion 36
+        versionCode 102
+        versionName "1.0.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs {
+        release {
+            if (file(keystorePath).exists() && keystorePassword) {
+                storeFile file(keystorePath)
+                storePassword keystorePassword
+                keyAlias keyAliasName
+                keyPassword keyAliasPassword
+            }
+        }
     }
 
     buildTypes {
         release {
+            if (file(keystorePath).exists() && keystorePassword) {
+                signingConfig signingConfigs.release
+            }
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -42,9 +72,6 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.9.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2'
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.6.2'
-    implementation 'androidx.work:work-runtime-ktx:2.8.1'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'

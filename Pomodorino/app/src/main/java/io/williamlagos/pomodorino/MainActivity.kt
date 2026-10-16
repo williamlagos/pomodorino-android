@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import androidx.appcompat.app.AppCompatActivity
 import io.williamlagos.pomodorino.databinding.ActivityMainBinding
+import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
     companion object {
@@ -94,7 +95,7 @@ class MainActivity : AppCompatActivity() {
     private fun updateTimerUI() {
         val minutes = (timeLeftInMillis / 1000) / 60
         val seconds = (timeLeftInMillis / 1000) % 60
-        binding.timerLabel.text = String.format("%02d:%02d", minutes, seconds)
+        binding.timerLabel.text = String.format(Locale.US, "%02d:%02d", minutes, seconds)
 
         val progress = ((timeLeftInMillis.toFloat() / currentPhase.duration.toFloat()) * 100).toInt()
         binding.circularProgress.setProgress(progress, true)

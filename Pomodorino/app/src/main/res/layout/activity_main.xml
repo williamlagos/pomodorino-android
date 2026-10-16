@@ -90,18 +90,20 @@
             android:layout_height="48dp"
             android:layout_marginEnd="16dp"
             android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/reset_timer"
             android:padding="12dp"
             android:src="@drawable/ic_reset"
-            android:tint="?attr/colorOnSurface" />
+            app:tint="?attr/colorOnSurface" />
 
         <ImageButton
             android:id="@+id/startPauseButton"
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/start_pause_timer"
             android:padding="16dp"
             android:src="@drawable/ic_play"
-            android:tint="?attr/colorPrimary" />
+            app:tint="?attr/colorPrimary" />
 
         <ImageButton
             android:id="@+id/skipButton"
@@ -109,9 +111,10 @@
             android:layout_height="48dp"
             android:layout_marginStart="16dp"
             android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/skip_phase"
             android:padding="12dp"
             android:src="@drawable/ic_skip"
-            android:tint="?attr/colorOnSurface" />
+            app:tint="?attr/colorOnSurface" />
 
     </LinearLayout>
 
